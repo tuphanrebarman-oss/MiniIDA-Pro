@@ -1,57 +1,78 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="MiniIDA Pro — a mobile-friendly Android ELF, SO and binary analysis tool.">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="MiniIDA Pro — Android ELF, SO and binary analysis tool.">
 <meta name="theme-color" content="#06101d">
-<link rel="icon" href="icon.png">
 <title>MiniIDA Pro — Android Binary Analysis Tool</title>
 <style>
-*{box-sizing:border-box}body{margin:0;font-family:Inter,Arial,sans-serif;background:#06101d;color:#eaf4ff;line-height:1.6}a{color:inherit;text-decoration:none}.wrap{max-width:1050px;margin:auto;padding:22px}.nav{display:flex;justify-content:space-between;align-items:center;gap:16px}.brand{display:flex;align-items:center;gap:12px;font-weight:800}.brand img{width:46px;height:46px;border-radius:12px}.btn{display:inline-block;padding:12px 18px;border-radius:12px;background:#20b8ff;color:#04101b;font-weight:800}.hero{padding:70px 0 50px;display:grid;grid-template-columns:1.15fr .85fr;gap:38px;align-items:center}.hero h1{font-size:clamp(38px,7vw,70px);line-height:1.05;margin:0 0 18px}.hero p{font-size:18px;color:#a7bdd1;max-width:650px}.hero img{width:min(330px,100%);display:block;margin:auto;border-radius:32px;box-shadow:0 0 0 1px #17334b,0 25px 80px rgba(0,0,0,.45)}.section{padding:28px 0 60px}.section h2{font-size:30px}.shots{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.shots img{width:100%;border-radius:16px;display:block;background:#0d1a29}.card{background:#0c1927;border:1px solid #183149;border-radius:18px;padding:22px}.features{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}.footer{padding:30px 0 50px;color:#86a0b7;font-size:14px}.small{color:#8ea8be;font-size:14px}.notice{margin-top:18px;padding:14px 16px;background:#0d1b2a;border:1px solid #19354e;border-radius:12px;color:#b7cad9}.code{font-family:ui-monospace,monospace;word-break:break-all;color:#8cdcff}@media(max-width:760px){.hero{grid-template-columns:1fr;padding-top:45px}.hero h1{font-size:48px}.shots{grid-template-columns:repeat(2,1fr)}.features{grid-template-columns:1fr}}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}html{scroll-behavior:smooth;scroll-padding-top:80px}body{margin:0;font-family:Arial,sans-serif;background:#06101d;color:#eaf4ff;line-height:1.6}a{color:inherit;text-decoration:none}.wrap{max-width:1050px;margin:auto;padding:18px}.nav{display:flex;justify-content:space-between;align-items:center;gap:12px;position:sticky;top:0;z-index:10;padding:12px 0;background:#06101df2;backdrop-filter:blur(12px)}.brand{display:flex;align-items:center;gap:10px;font-weight:800}.brand img{width:43px;height:43px;object-fit:cover;border-radius:12px;background:#102438}.btn{display:inline-flex;align-items:center;justify-content:center;padding:12px 17px;border-radius:12px;background:linear-gradient(135deg,#20b8ff,#00e0b8);color:#04101b;font-weight:800;border:0;cursor:pointer}.secondary{background:#0d1b2a;border:1px solid #24425c;color:#eaf4ff}.hero{padding:60px 0 45px;display:grid;grid-template-columns:1.15fr .85fr;gap:32px;align-items:center}.eyebrow{color:#60d4ff;font-size:12px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase}.hero h1{font-size:clamp(42px,7vw,70px);line-height:1.05;letter-spacing:-2px;margin:17px 0}.grad{background:linear-gradient(100deg,#20b8ff,#00e0b8);-webkit-background-clip:text;background-clip:text;color:transparent}.hero p{color:#a7bdd1;font-size:17px}.hero-logo{width:min(300px,100%);aspect-ratio:1;object-fit:cover;display:block;margin:auto;border-radius:28px;box-shadow:0 20px 70px #0008}.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}.section{padding:28px 0 44px}.section h2{font-size:28px;margin:0 0 8px}.muted{color:#8ea8be}.features{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:20px}.card{background:linear-gradient(145deg,#0e1e2e,#0a1623);border:1px solid #183149;border-radius:17px;padding:20px}.card h3{margin:0 0 7px;font-size:17px}.card p{margin:0;color:#8ea8be;font-size:14px}.versions{display:grid;gap:12px;margin-top:18px}.version{background:#0c1927;border:1px solid #183149;border-radius:16px;padding:18px;display:flex;justify-content:space-between;align-items:center;gap:15px}.version h3{margin:0 0 4px}.version p{margin:0;color:#8ea8be;font-size:13px;overflow-wrap:anywhere}.shots{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:18px}.shots img{width:100%;display:block;aspect-ratio:9/16;object-fit:cover;background:#0c1927;border:1px solid #183149;border-radius:14px}.status{font-size:13px;color:#8ea8be;margin-top:12px}.footer{border-top:1px solid #183149;margin-top:25px;padding:24px 0 35px;color:#86a0b7;font-size:13px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}.empty{padding:18px;border:1px dashed #24425c;border-radius:14px;color:#8ea8be}@media(max-width:700px){.wrap{padding:14px}.hero{grid-template-columns:1fr;padding:42px 0 30px}.hero h1{font-size:48px}.hero-logo{max-width:230px}.features{grid-template-columns:1fr}.shots{grid-template-columns:repeat(2,minmax(0,1fr))}.version{align-items:flex-start;flex-direction:column}.nav .btn{padding:10px 12px;font-size:12px}}@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
 </style>
 </head>
 <body>
 <div class="wrap">
-  <nav class="nav">
-    <a class="brand" href="./"><img src="icon.png" alt="MiniIDA Pro icon"><span>MiniIDA Pro</span></a>
-    <a class="btn" href="download.html">Download APK</a>
-  </nav>
-
-  <section class="hero">
-    <div>
-      <div class="small">Android • Mobile-friendly</div>
-      <h1>MiniIDA Pro</h1>
-      <p>Analyze ELF, SO and binary files from an Android device with a compact, mobile-focused workflow.</p>
-      <a class="btn" href="download.html">Get the APK</a>
-      <div class="notice">Replace the GitHub username in <span class="code">download.html</span> before publishing your Release APK.</div>
-    </div>
-    <div><img src="icon.png" alt="MiniIDA Pro"></div>
-  </section>
-
-  <section class="section">
-    <h2>Features</h2>
-    <div class="features">
-      <div class="card">ELF header and section inspection</div>
-      <div class="card">Functions, imports and exports view</div>
-      <div class="card">Printable strings and ASCII search</div>
-      <div class="card">Raw HEX view and offset jump</div>
-    </div>
-  </section>
-
-  <section class="section">
-    <h2>Screenshots</h2>
-    <div class="shots">
-      <img src="screenshots/screenshot-1.jpg" alt="MiniIDA Pro screenshot 1" loading="lazy">
-      <img src="screenshots/screenshot-2.jpg" alt="MiniIDA Pro screenshot 2" loading="lazy">
-      <img src="screenshots/screenshot-3.jpg" alt="MiniIDA Pro screenshot 3" loading="lazy">
-      <img src="screenshots/screenshot-4.jpg" alt="MiniIDA Pro screenshot 4" loading="lazy">
-      <img src="screenshots/screenshot-5.jpg" alt="MiniIDA Pro screenshot 5" loading="lazy">
-      <img src="screenshots/screenshot-6.jpg" alt="MiniIDA Pro screenshot 6" loading="lazy">
-    </div>
-  </section>
-
-  <footer class="footer">© 2026 MiniIDA Pro • Download page hosted with GitHub Pages</footer>
+<nav class="nav"><a class="brand" href="#home"><img id="brandLogo" src="icon.png" alt="MiniIDA Pro logo"><span>MiniIDA Pro</span></a><a class="btn" href="#versions">Download APK</a></nav>
+<main>
+<section class="hero" id="home"><div><div class="eyebrow">Android • Binary Analysis</div><h1>MiniIDA <span class="grad">Pro</span></h1><p>Analyze ELF, SO and binary files from your Android device with a compact, mobile-focused workflow.</p><div class="actions"><a class="btn" href="#versions">↓ Get APK</a><a class="btn secondary" href="#features">Explore Features</a></div><div class="status" id="connectionStatus">Loading release information…</div></div><div><img class="hero-logo" id="heroLogo" src="icon.png" alt="MiniIDA Pro"></div></section>
+<section class="section" id="features"><h2>Features</h2><p class="muted">Tools designed for mobile binary inspection.</p><div class="features"><article class="card"><h3>⌘ ELF Header Inspection</h3><p>Inspect ELF metadata and supported section information.</p></article><article class="card"><h3>ƒ Functions & Symbols</h3><p>View available function, import and export information.</p></article><article class="card"><h3>⌕ Strings Search</h3><p>Search printable strings and readable ASCII content.</p></article><article class="card"><h3>▤ HEX Viewer</h3><p>Inspect raw hexadecimal data and jump to file offsets.</p></article></div></section>
+<section class="section" id="versions"><h2>All Versions</h2><p class="muted">Choose a release below. Always verify the version before installing.</p><div class="versions" id="versionList"><div class="empty">Loading versions…</div></div></section>
+<section class="section" id="screenshots"><h2>Screenshots</h2><p class="muted">Application interface previews.</p><div class="shots"><img src="screenshots/screenshot-1.jpg" alt="Screenshot 1" loading="lazy"><img src="screenshots/screenshot-2.jpg" alt="Screenshot 2" loading="lazy"><img src="screenshots/screenshot-3.jpg" alt="Screenshot 3" loading="lazy"><img src="screenshots/screenshot-4.jpg" alt="Screenshot 4" loading="lazy"><img src="screenshots/screenshot-5.jpg" alt="Screenshot 5" loading="lazy"><img src="screenshots/screenshot-6.jpg" alt="Screenshot 6" loading="lazy"></div></section>
+</main>
+<footer class="footer"><span>© 2026 MiniIDA Pro</span><span><a href="#home">Home</a> · <a href="#versions">Versions</a> · <a href="admin.html">Admin</a></span></footer>
 </div>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+<script>
+/* Paste your Firebase Web App config from Firebase Console here. */
+const firebaseConfig = {
+  apiKey: "AIzaSyD_ROTTXNwGNSjXq3qsElq770a81tgTTxs",
+  authDomain: "social-media-30026.firebaseapp.com",
+  databaseURL: "https://social-media-30026-default-rtdb.firebaseio.com",
+  projectId: "social-media-30026",
+  storageBucket: "social-media-30026.firebasestorage.app",
+  messagingSenderId: "595777120422",
+  appId: "1:595777120422:web:111c80fd3c647c52d1ac67"
+};
+
+const statusEl=document.getElementById('connectionStatus');
+const listEl=document.getElementById('versionList');
+function showVersions(items){
+  listEl.innerHTML='';
+  if(!items.length){listEl.innerHTML='<div class="empty">No releases have been published yet.</div>';return;}
+  items.sort((a,b)=>(Number(b.createdAt)||0)-(Number(a.createdAt)||0));
+  items.forEach(v=>{
+    const card=document.createElement('article');card.className='version';
+    const info=document.createElement('div');const h=document.createElement('h3');h.textContent=v.name||'MiniIDA Pro release';
+    const p=document.createElement('p');p.textContent=[v.version||'Version',v.notes||''].filter(Boolean).join(' • ');
+    info.append(h,p);const a=document.createElement('a');a.className='btn';a.href=v.url||'#';a.textContent='Download APK';a.target='_blank';a.rel='noopener noreferrer';
+    if(!/^https?:\/\//i.test(a.href)||a.getAttribute('href')==='#'){a.removeAttribute('href');a.style.opacity='.5';a.style.pointerEvents='none';}
+    card.append(info,a);listEl.append(card);
+  });
+}
+try{
+ if(firebaseConfig.apiKey.startsWith('PASTE_')||firebaseConfig.projectId==='PASTE_PROJECT_ID'){
+  statusEl.textContent='Firebase setup required: add your Web App config to index.html and admin.html.';
+  listEl.innerHTML='<div class="empty">Firebase is not configured yet. Add your Firebase config to load published versions.</div>';
+ }else{
+  if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+  firebase.database().ref("site/logoBase64").on("value", snap => {
+    const logo = snap.val();
+    if (typeof logo === "string" &&
+        /^data:image\/(png|jpeg|jpg|webp|gif);base64,/i.test(logo)) {
+      document.getElementById("brandLogo").src = logo;
+      document.getElementById("heroLogo").src = logo;
+    } else {
+      document.getElementById("brandLogo").src = "icon.png";
+      document.getElementById("heroLogo").src = "icon.png";
+    }
+  });
+  firebase.database().ref('releases').on('value',snap=>{
+    const data=snap.val()||{};showVersions(Object.keys(data).map(k=>({...data[k],key:k})));
+    statusEl.textContent='Release information synced with Firebase.';
+  },err=>{statusEl.textContent='Could not load releases. Check Firebase Realtime Database rules and configuration.';listEl.innerHTML='<div class="empty">Unable to load versions. Please try again later.</div>';});
+ }
+}catch(e){statusEl.textContent='Firebase could not initialize. Check the Firebase configuration.';listEl.innerHTML='<div class="empty">Firebase setup error.</div>';}
+</script>
 </body>
 </html>
