@@ -9,7 +9,7 @@ Files:
 - sitemap.xml
 
 Before publishing:
-1. Replace YOUR-USERNAME with your GitHub username in download.html, robots.txt and sitemap.xml.
+1. Replace Tuphan barman with your GitHub username in download.html, robots.txt and sitemap.xml.
 2. Create a GitHub repository named MiniIDA-Pro (or change the paths to match your repo).
 3. Upload these files to the main branch.
 4. GitHub Settings -> Pages -> Deploy from a branch -> main -> /(root).
